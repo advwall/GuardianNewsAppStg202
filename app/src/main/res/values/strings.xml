@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Guardian News App</string>
+    <string name="no_internet_connection">No internet connection available.</string>
+    <string name="no_news">No news to display.</string>
+
+    <string name="placeholder_section">Word Cup</string>
+    <string name="placeholder_title">Headline Portugal - Spain</string>
+    <string name="placeholder_author">Bruno Andre</string>
+    <string name="placeholder_date">Jun 2, 2018</string>
+    <string name="activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <!-- Content description for different images [CHAR LIMIT=100] -->
+    <string name="different_images">different_images</string>
+
+    <!-- Stage 2 add Settings Menu Item [CHAR LIMIT=NONE]-->
+    <string name="settings_menu_item">Settings</string>
+
+    <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
+    <string name="settings_title">News Settings</string>
+
+    <!-- Settings activity Strings   -->
+    <string name="settings_title_label">Search Phrase</string>
+    <string name="settings_title_key" translatable="false">title</string>
+    <string name="settings_title_default" translatable="false">Asia</string>
+
+    <!-- Strings  Preference [CHAR LIMIT=30] -->
+
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_relevance_value</string>
+    <string name="settings_order_by_labels">Order By</string>
+    <string name="settings_order_by_values" translatable="false">order_by</string>
+
+    <!-- Label for order-by title option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Most Recent</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">newest</string>
+
+    <!--Other Strings-->
+    <string name="q">q</string>
+    <string name="show_fields">show-fields</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="order_by">order-by</string>
+    <string name="show_tags">show-tags</string>
+    <string name="contributor">contributor</string>
+    <string name="api_key">api-key</string>
+    <string name="uk">United Kingdom</string>
+    <string name="business">Business</string>
+    <string name="science">Science</string>
+    <string name="all">All</string>
+    <string name="world">World</string>
+    <string name="us">United States</string>
+
+    <string name="pick_category1">News category</string>
+    <string name="pick_category2">Choose from news category</string>
+
+</resources>

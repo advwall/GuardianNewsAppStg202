@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //news category for array list
+    <string-array name="categories">
+        <item>@string/all</item>
+        <item>@string/world</item>
+        <item>@string/us</item>
+        <item>@string/uk</item>
+        <item>@string/business</item>
+        <item>@string/science</item>
+    </string-array>
+
+
+</resources>

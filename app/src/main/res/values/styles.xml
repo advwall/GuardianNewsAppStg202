@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="section_article" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorSubHeading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="title_article" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/colorSubHeading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">serif</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_below">@id/section_name</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="author_name" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorSubHeading</item>
+        <item name="android:layout_below">@id/title_article</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="date_published" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorSubHeading</item>
+        <item name="android:layout_alignRight">@id/title_article</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

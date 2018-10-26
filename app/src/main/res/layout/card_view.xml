@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/backgroundColor">
+
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        card_view:cardBackgroundColor="@color/cardBackgroundColor"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        card_view:cardCornerRadius="12dp"
+        card_view:contentPadding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/story_pic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                tools:src="@tools:sample/avatars"/>
+
+            <TextView
+                style="@style/section_article"
+                android:id="@+id/section_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder_section" />
+
+            <TextView
+                style="@style/title_article"
+                android:id="@+id/title_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder_title"
+                android:textColor="@color/colorHeading"
+                android:layout_toStartOf="@id/story_pic"
+                android:layout_toLeftOf="@id/story_pic"/>
+
+            <TextView
+                style="@style/author_name"
+                android:id="@+id/author_name"
+                tools:text="@string/placeholder_author"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/title_article"
+                />
+
+            <TextView
+                android:id="@+id/date_published"
+                style="@style/date_published"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder_date" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
