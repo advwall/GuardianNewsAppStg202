@@ -22,6 +22,15 @@ public class NewsSettings extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_screen_layout);
+
+            Preference Search = findPreference(getString(R.string.settings_search_key));
+            bindPreferenceSummaryToValue(Search);
+
+            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+            bindPreferenceSummaryToValue(orderBy);
+
+            Preference section = findPreference(getString(R.string.settings_section_key));
+            bindPreferenceSummaryToValue(section);
         }
 
         /**
@@ -45,14 +54,9 @@ public class NewsSettings extends AppCompatActivity {
             return true;
         }
 
-        /**
-         * Read the current value of the preference stored in the SharedPreferences on the device,
-         * and display that in the preference summary
-         */
         private void bindPreferenceSummaryToValue(Preference preference) {
             preference.setOnPreferenceChangeListener(this);
-            SharedPreferences preferences =
-                    PreferenceManager.getDefaultSharedPreferences(preference.getContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");
             onPreferenceChange(preference, preferenceString);
         }

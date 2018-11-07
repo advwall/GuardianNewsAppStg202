@@ -11,16 +11,20 @@ import java.util.List;
  */
 public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
 
-    String apiKey = getContext().getString(R.string.GUARDIAN_API_KEY);
-    private String REQUEST_URL = "https://content.guardianapis.com/search?show-tags=contributor&api-key=" + apiKey;
+    /** Tag for log messages */
+    private static final String LOG_TAG = NewsLoader.class.getName();
+
+    /** Query URL */
+    private String mUrl;
 
     /**
      * Constructs a new {@link NewsLoader}.
      *
      * @param context of the activity
      */
-    public NewsLoader(Context context) {
+    public NewsLoader(Context context, String url) {
         super(context);
+        mUrl = url;
     }
 
     @Override
@@ -34,11 +38,12 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
     @Override
     public List<NewsInformation> loadInBackground() {
         // If there is no URL, return null.
-        if (REQUEST_URL == null) {
+        if (mUrl == null) {
             return null;
         }
 
         // Perform the network request, parse the response, and extract a list of news stories.
-        return QueryUtils.fetchNewsData(REQUEST_URL);
+        List<NewsInformation> newsInformations = QueryUtils.fetchNewsData(mUrl);
+        return newsInformations;
     }
 }

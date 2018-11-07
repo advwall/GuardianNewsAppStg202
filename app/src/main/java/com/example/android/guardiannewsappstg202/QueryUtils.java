@@ -27,7 +27,6 @@ import java.util.Locale;
 public class QueryUtils {
 
     private static String LOG_TAG = MainActivity.class.getSimpleName();
-    private static Context mContext;
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -49,7 +48,7 @@ public class QueryUtils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e(LOG_TAG, mContext.getString(R.string.ProblemWithHTTP), e);
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link News}s
@@ -64,7 +63,7 @@ public class QueryUtils {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException exception) {
-            Log.e(LOG_TAG, mContext.getString(R.string.ErrorWithUrl), exception);
+            Log.e(LOG_TAG, "Problem building URL", exception);
             return null;
         }
         return url;
@@ -112,7 +111,7 @@ public class QueryUtils {
                 Log.d("Error response code: ", String.valueOf(urlConnection.getResponseCode()));
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, mContext.getString(R.string.ProblemRetrievingJSON), e);
+            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -161,29 +160,32 @@ public class QueryUtils {
                 JSONObject currentResults = resultsArray.getJSONObject(i);
 
                 String title = currentResults.optString("webTitle");
+
                 String category = currentResults.optString("sectionName");
+
                 String date = currentResults.optString("webPublicationDate");
+
                 date = formatDate(date);
+
                 String newsUrl = currentResults.optString("webUrl");
+
                 JSONArray tagsAuthor = currentResults.getJSONArray("tags");
+
                 String author;
                 if (tagsAuthor.length()!= 0) {
                     JSONObject currentTagsAuthor = tagsAuthor.getJSONObject(0);
                     author = currentTagsAuthor.optString("webTitle");
+
                 }else{
                     author = " ";
                 }
-                NewsInformation news = new NewsInformation(title, category, date, newsUrl, author);
-                newsList.add(news);
+                NewsInformation newsInformation = new NewsInformation(title, category, date, newsUrl, author);
+                newsList.add(newsInformation);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return newsList;
-    }
-
-    public static void setmContext(Context mContext) {
-        QueryUtils.mContext = mContext;
     }
 }

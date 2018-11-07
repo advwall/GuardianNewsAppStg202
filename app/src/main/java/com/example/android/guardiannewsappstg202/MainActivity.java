@@ -26,6 +26,16 @@ public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<NewsInformation>>,
         SwipeRefreshLayout.OnRefreshListener {
 
+    private static final String LOG_TAG = MainActivity.class.getName();
+
+    /**
+     * Constant value for the earthquake loader ID. We can choose any integer.
+     * This really only comes into play if you're using multiple loaders.
+     */
+    private static final int NEWS_LOADER_ID = 1;
+
+    private String REQUEST_URL = "https://content.guardianapis.com/search?show-tags=contributor&api-key=8a0740e0-7c36-47a1-a721-5549be39411b";
+
     /** Adapter for the list of News */
     private NewsAdapter adapter;
 
@@ -78,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         if (networkInfo != null && networkInfo.isConnected()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
-            loaderManager.initLoader(0, null, this);
+            loaderManager.initLoader(NEWS_LOADER_ID, null, this);
 
         } else {
             // Otherwise, display error
@@ -91,12 +101,48 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
     public Loader<List<NewsInformation>> onCreateLoader(int id, Bundle args) {
         //This is where your settings preferences are applied.
-        return new NewsLoader(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String Search = sharedPrefs.getString(getString(R.string.settings_search_key),
+                getString(R.string.settings_Search_default));
+
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        String section = sharedPrefs.getString(getString(R.string.settings_section_key),
+                getString(R.string.settings_section_default));
+
+        Uri baseUri = Uri.parse(REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        if (!Search.equals("")) {
+            uriBuilder.appendQueryParameter("q", Search);
+            orderBy = getString(R.string.settings_order_by_relevance_value);
+        }
+
+        if (Search.equals("") && orderBy.equals(getString(R.string.settings_order_by_relevance_value))) {
+            orderBy = getString(R.string.settings_order_by_newest_value);
+        }
+
+        if (!section.equals("")) {
+            if (!section.equals(getString(R.string.settings_section_default_value))) {
+                uriBuilder.appendQueryParameter("section", section);
+            }
+        }
+
+//        uriBuilder.appendQueryParameter("format", "geojson");
+//        uriBuilder.appendQueryParameter("limit", "10");
+//        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+//        uriBuilder.appendQueryParameter("orderby", orderBy);
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
-    public void onLoadFinished(Loader<List<NewsInformation>> loader, List<NewsInformation> news) {
+    @Override
+    public void onLoadFinished(Loader<List<NewsInformation>> loader, List<NewsInformation> newsInformations) {
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
@@ -105,16 +151,19 @@ public class MainActivity extends AppCompatActivity
 
         adapter.clear();
 
-        if (news != null && !news.isEmpty()) {
-            adapter.addAll(news);
+        if (newsInformations != null && !newsInformations.isEmpty()) {
+            adapter.addAll(newsInformations);
         }
     }
 
+    @Override
     public void onLoaderReset(Loader<List<NewsInformation>> loader) {
         // Loader reset, so we can clear out our existing data.
         adapter.clear();
     }
 
+
+    @Override
     //Call .restartLoader() method to fetch news data with swipe
     public void onRefresh() {
         getLoaderManager().restartLoader(0, null, this);
@@ -127,12 +176,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Initialize the contents of the Activity's options menu.
+     * Initialize the contents of the Activity's options main.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/main.xml file.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        // Inflate the main options from the res/main/main.xml file.
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
