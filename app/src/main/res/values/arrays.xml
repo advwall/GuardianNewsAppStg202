@@ -8,6 +8,10 @@
         <item>@string/uk</item>
         <item>@string/business</item>
         <item>@string/science</item>
+        <item>@string/society</item>
+        <item>@string/sport</item>
+        <item>@string/art</item>
+        <item>@string/technology</item>
     </string-array>
 
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Loads a list of News by using an AsyncTask to perform the
  * network request to the given URL.
  */
-public class NewsLoader extends AsyncTaskLoader<List<NewsItem>> {
+public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
 
     String apiKey = getContext().getString(R.string.GUARDIAN_API_KEY);
     private String REQUEST_URL = "https://content.guardianapis.com/search?show-tags=contributor&api-key=" + apiKey;
@@ -32,11 +32,13 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsItem>> {
      * This is on a background thread.
      */
     @Override
-    public List<NewsItem> loadInBackground() {
+    public List<NewsInformation> loadInBackground() {
+        // If there is no URL, return null.
         if (REQUEST_URL == null) {
             return null;
         }
 
+        // Perform the network request, parse the response, and extract a list of news stories.
         return QueryUtils.fetchNewsData(REQUEST_URL);
     }
 }

@@ -1,12 +1,11 @@
 package com.example.android.guardiannewsappstg202;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +26,9 @@ import java.util.Locale;
  */
 public class QueryUtils {
 
+    private static String LOG_TAG = MainActivity.class.getSimpleName();
+    private static Context mContext;
+
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
@@ -36,9 +38,9 @@ public class QueryUtils {
     }
 
     /**
-     * Query the News dataset and return a list of {@link NewsItem} objects.
+     * Query the News dataset and return a list of {@link NewsInformation} objects.
      */
-    public static List<NewsItem> fetchNewsData(String requestUrl) {
+    static List<NewsInformation> fetchNewsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -47,26 +49,27 @@ public class QueryUtils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, mContext.getString(R.string.ProblemWithHTTP), e);
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link News}s
-        List<NewsItem> news = extractFeatureFromJson(jsonResponse);
+        List<NewsInformation> news = extractFeatureFromJson(jsonResponse);
 
-        // Return the list of {@link News}s
+        // Return the list of {@link News}
         return news;
     }
 
     private static URL createUrl(String stringUrl) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(stringUrl);
-        } catch (MalformedURLException e) {
-
-            e.printStackTrace();
+        } catch (MalformedURLException exception) {
+            Log.e(LOG_TAG, mContext.getString(R.string.ErrorWithUrl), exception);
+            return null;
         }
         return url;
     }
+
     // Formats date published to be presented as "MMM d, yyy" eg: Jun 2, 2018
     private static String formatDate(String rawDate) {
         String jsonDatePattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -109,15 +112,12 @@ public class QueryUtils {
                 Log.d("Error response code: ", String.valueOf(urlConnection.getResponseCode()));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, mContext.getString(R.string.ProblemRetrievingJSON), e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies than an IOException
-                // could be thrown.
                 inputStream.close();
             }
         }
@@ -143,14 +143,14 @@ public class QueryUtils {
     }
 
     /**
-     * Return a list of {@link NewsItem} objects that has been built up from
+     * Return a list of {@link NewsInformation} objects that has been built up from
      * parsing the given JSON response.
      */
-    private static List<NewsItem> extractFeatureFromJson(String newsJSON) {
+    private static List<NewsInformation> extractFeatureFromJson(String newsJSON) {
         if (TextUtils.isEmpty(newsJSON)) {
             return null;
         }
-        List<NewsItem> newsList = new ArrayList<>();
+        List<NewsInformation> newsList = new ArrayList<>();
         try {
 
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
@@ -160,20 +160,20 @@ public class QueryUtils {
             for (int i = 0; i < resultsArray.length(); i++) {
                 JSONObject currentResults = resultsArray.getJSONObject(i);
 
-                String Title = currentResults.optString("webTitle");
+                String title = currentResults.optString("webTitle");
                 String category = currentResults.optString("sectionName");
                 String date = currentResults.optString("webPublicationDate");
                 date = formatDate(date);
-                String url = currentResults.optString("webUrl");
+                String newsUrl = currentResults.optString("webUrl");
                 JSONArray tagsAuthor = currentResults.getJSONArray("tags");
-                String author="";
+                String author;
                 if (tagsAuthor.length()!= 0) {
                     JSONObject currentTagsAuthor = tagsAuthor.getJSONObject(0);
                     author = currentTagsAuthor.optString("webTitle");
                 }else{
                     author = " ";
                 }
-                NewsItem news = new NewsItem(Title, category, date, url, author);
+                NewsInformation news = new NewsInformation(title, category, date, newsUrl, author);
                 newsList.add(news);
             }
 
@@ -181,5 +181,9 @@ public class QueryUtils {
             e.printStackTrace();
         }
         return newsList;
+    }
+
+    public static void setmContext(Context mContext) {
+        QueryUtils.mContext = mContext;
     }
 }
