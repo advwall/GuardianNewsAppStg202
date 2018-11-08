@@ -54,7 +54,8 @@
 
     <string name="settings_search_label">Search</string>
     <string name="settings_order_by_label">Order By</string>
-    <string name="settings_section_label">Section</string>
+    <string name="settings_section_label">Categories</string>
+    <string name="settings_section_desc">Select topics you want to see in your feed</string>
     <string name="settings_order_by_oldest_label">Oldest</string>
     <string name="settings_order_by_newest_label">Newest</string>
     <string name="settings_order_by_relevance_label">Relevance</string>

@@ -14,18 +14,6 @@
         <item>@string/technology</item>
     </string-array>
 
-    <string-array name="settings_order_by_labels">
-        <item>@string/settings_order_by_newest_label</item>
-        <item>@string/settings_order_by_oldest_label</item>
-        <item>@string/settings_order_by_relevance_label</item>
-    </string-array>
-
-    <string-array name="settings_order_by_values">
-        <item>@string/settings_order_by_newest_value</item>
-        <item>@string/settings_order_by_oldest_value</item>
-        <item>@string/settings_order_by_relevance_value</item>
-    </string-array>
-
     <string-array name="settings_section_labels">
         <item>@string/settings_section_default_label</item>
         <item>@string/settings_section_artanddesign_label</item>

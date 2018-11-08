@@ -26,9 +26,6 @@ public class NewsSettings extends AppCompatActivity {
             Preference Search = findPreference(getString(R.string.settings_search_key));
             bindPreferenceSummaryToValue(Search);
 
-            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
-            bindPreferenceSummaryToValue(orderBy);
-
             Preference section = findPreference(getString(R.string.settings_section_key));
             bindPreferenceSummaryToValue(section);
         }
