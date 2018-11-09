@@ -1,6 +1,5 @@
 package com.example.android.guardiannewsappstg202;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import org.json.JSONArray;
@@ -50,12 +49,8 @@ public class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
-
         // Extract relevant fields from the JSON response and create a list of {@link News}s
-        List<NewsInformation> news = extractFeatureFromJson(jsonResponse);
-
-        // Return the list of {@link News}
-        return news;
+        return extractFeatureFromJson(jsonResponse);
     }
 
     private static URL createUrl(String stringUrl) {

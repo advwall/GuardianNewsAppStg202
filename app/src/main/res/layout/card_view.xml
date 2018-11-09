@@ -26,18 +26,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/story_pic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
-                tools:src="@tools:sample/avatars"/>
-
             <TextView
                 style="@style/section_article"
                 android:id="@+id/section_name"
@@ -51,9 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@string/placeholder_title"
-                android:textColor="@color/colorHeading"
-                android:layout_toStartOf="@id/story_pic"
-                android:layout_toLeftOf="@id/story_pic"/>
+                android:textColor="@color/colorHeading"/>
 
             <TextView
                 style="@style/author_name"

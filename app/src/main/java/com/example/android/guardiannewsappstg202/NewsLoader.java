@@ -11,16 +11,11 @@ import java.util.List;
  */
 public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = NewsLoader.class.getName();
-
     /** Query URL */
     private String mUrl;
 
     /**
      * Constructs a new {@link NewsLoader}.
-     *
-     * @param context of the activity
      */
     public NewsLoader(Context context, String url) {
         super(context);
@@ -32,9 +27,6 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
         forceLoad();
     }
 
-    /**
-     * This is on a background thread.
-     */
     @Override
     public List<NewsInformation> loadInBackground() {
         // If there is no URL, return null.
@@ -43,7 +35,6 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsInformation>> {
         }
 
         // Perform the network request, parse the response, and extract a list of news stories.
-        List<NewsInformation> newsInformations = QueryUtils.fetchNewsData(mUrl);
-        return newsInformations;
+        return QueryUtils.fetchNewsData(mUrl);
     }
 }

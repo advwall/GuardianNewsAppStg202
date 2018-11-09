@@ -1,5 +1,11 @@
 package com.example.android.guardiannewsappstg202;
 
+//This app was made as part of Udacity's Grow with Google Scholarship. The structure and content of this code
+//was made with the help of Udacity's class, mentors, as well various tutorials available online.
+//Other apps which influenced this code includes: Quake Report and the Musical Structure App
+//"Swipe Refresh Layout: How to Use --> https://antonioleiva.com/swiperefreshlayout/
+//Additionally, extensive use was made of https://developer.android.com/
+
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
@@ -26,14 +32,13 @@ public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<NewsInformation>>,
         SwipeRefreshLayout.OnRefreshListener {
 
-    private static final String LOG_TAG = MainActivity.class.getName();
-
-    /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
-     * This really only comes into play if you're using multiple loaders.
-     */
+    /**Constant value for the news loader ID. We can choose any integer.*/
     private static final int NEWS_LOADER_ID = 1;
 
+    /**Accesses the api key resource.*/
+//    private String API_KEY = getString(R.string.api_key);
+
+    /**Constant value for the news loader ID. We can choose any integer.*/
     private String REQUEST_URL = "https://content.guardianapis.com/search?show-tags=contributor&api-key=8a0740e0-7c36-47a1-a721-5549be39411b";
 
     /** Adapter for the list of News */
@@ -55,18 +60,14 @@ public class MainActivity extends AppCompatActivity
         swipe.setOnRefreshListener(this);
         swipe.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
 
-        // Find a reference to the {@link ListView} in the layout
         ListView newsListView = findViewById(R.id.list);
 
         emptyStateTextView = findViewById(R.id.empty_view);
         newsListView.setEmptyView(emptyStateTextView);
 
-        // Create a new adapter that takes an empty list of news as input
         adapter = new NewsAdapter(this, new ArrayList<NewsInformation>());
         newsListView.setAdapter(adapter);
 
-        // Set an item click listener on the ListView, which sends an intent to a web browser
-        // to open a website
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -82,9 +83,7 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // Get details on the currently active default data network
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
@@ -96,7 +95,6 @@ public class MainActivity extends AppCompatActivity
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
 
-            // Update empty state with no connection error message
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
     }
@@ -108,10 +106,8 @@ public class MainActivity extends AppCompatActivity
 
         String Search = sharedPrefs.getString(getString(R.string.settings_search_key),
                 getString(R.string.settings_Search_default));
-
         String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default));
-
         String section = sharedPrefs.getString(getString(R.string.settings_section_key),
                 getString(R.string.settings_section_default));
 
@@ -122,22 +118,14 @@ public class MainActivity extends AppCompatActivity
             uriBuilder.appendQueryParameter("q", Search);
             orderBy = getString(R.string.settings_order_by_relevance_value);
         }
-
         if (Search.equals("") && orderBy.equals(getString(R.string.settings_order_by_relevance_value))) {
             orderBy = getString(R.string.settings_order_by_newest_value);
         }
-
         if (!section.equals("")) {
             if (!section.equals(getString(R.string.settings_section_default_value))) {
                 uriBuilder.appendQueryParameter("section", section);
             }
         }
-
-//        uriBuilder.appendQueryParameter("format", "geojson");
-//        uriBuilder.appendQueryParameter("limit", "10");
-//        uriBuilder.appendQueryParameter("minmag", minMagnitude);
-//        uriBuilder.appendQueryParameter("orderby", orderBy);
-
         return new NewsLoader(this, uriBuilder.toString());
     }
 
@@ -147,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-        emptyStateTextView.setText(R.string.no_news);
+        emptyStateTextView.setText(R.string.no_internet_connection);
 
         adapter.clear();
 
@@ -158,7 +146,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<NewsInformation>> loader) {
-        // Loader reset, so we can clear out our existing data.
+        // Clears existing data
         adapter.clear();
     }
 
@@ -175,9 +163,6 @@ public class MainActivity extends AppCompatActivity
         }, 5000);
     }
 
-    /**
-     * Initialize the contents of the Activity's options main.
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the main options from the res/main/main.xml file.
@@ -185,9 +170,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    /**
-     * Setup the specific action that occurs when any of the items in the Options Menu are selected.
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -199,5 +181,4 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
